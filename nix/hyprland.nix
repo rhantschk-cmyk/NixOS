@@ -22,6 +22,7 @@
     hl.on("hyprland.start", function()
         hl.exec_cmd(rgb)
         hl.exec_cmd(quickshell)
+	hl.exec_cmd("systemctl --user start nixos-fake-graphical-session.target")
         hl.exec_cmd(wallpaper_daemon)
     end)
     

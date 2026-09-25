@@ -17,11 +17,6 @@
     };
   };
 
-  programs.tmux = {
-    enable = true;
-    baseIndex = 1;
-  };
-
   programs.bash = {
     enable = true;
     shellAliases = {
