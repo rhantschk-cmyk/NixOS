@@ -54,6 +54,7 @@
     luarocks
     love
     gcc
+    nodejs
   ];
 
   # Programs with extra Config
