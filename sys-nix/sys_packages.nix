@@ -5,6 +5,7 @@
   # System Programs
   environment.systemPackages = with pkgs; [
     libnotify
+    openssl
     vim
     wget
     fzf
