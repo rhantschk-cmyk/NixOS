@@ -20,12 +20,15 @@ in
     vimAlias = true;
 
     extraPackages = with pkgs; [
-      love
       git
       ripgrep
       fd
       curl
       wget
+      typescript
+      typescript-language-server
+      vscode-langservers-extracted
+      prettier
     ];
 
     globals = {
@@ -84,6 +87,8 @@ in
         };
       };
 
+      gitsigns.enable = true;
+
       lsp = {
         enable = true;
         keymaps = {
@@ -117,23 +122,10 @@ in
 
           zls.enable = true;
 
-          lua_ls = {
-            enable = true;
-            settings = {
-              Lua = {
-                runtime.version = "LuaJIT";
-                diagnostics.globals = [ "vim" "love" ];
-                telemetry.enable = false;
-                workspace = {
-                  checkThirdParty = false;
-                  library = [
-                    "diagnostics.globals"
-                    "${love-api}"
-                  ];
-                };
-              };
-            };
-          };
+          ts_ls.enable = true;
+          html.enable = true;
+          cssls.enable = true;
+          jsonls.enable = true;
         };
       };
     };

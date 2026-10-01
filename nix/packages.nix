@@ -50,11 +50,10 @@
     # Development
     go
     zig
-    lua
-    luarocks
-    love
     gcc
+    typescript
     nodejs
+    electron
   ];
 
   # Programs with extra Config
