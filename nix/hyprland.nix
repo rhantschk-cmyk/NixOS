@@ -193,6 +193,7 @@
     hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("gio launch /home/raphael/.local/share/applications/chatgpt.desktop"))
     hl.bind(mainMod .. " + SHIFT + G", hl.dsp.exec_cmd("gio launch /home/raphael/.local/share/applications/github.desktop"))
     hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("gio launch /home/raphael/.local/share/applications/gmail.desktop"))
+    hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("gio launch /home/raphael/.local/share/applications/applemusic.desktop"))
     
     -- Quit Hyprland
     hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
