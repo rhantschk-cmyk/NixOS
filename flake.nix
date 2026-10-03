@@ -10,6 +10,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
+    better-git-cli.url = "github:rhantschk-cmyk/betterGitCli";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nixcord, nixvim, ...}: {

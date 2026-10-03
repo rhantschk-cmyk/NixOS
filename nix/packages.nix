@@ -2,6 +2,7 @@
 {
   imports = [
     inputs.nixcord.homeModules.nixcord
+    inputs.better-git-cli.homeModules.default
   ];
 
   home.packages = with pkgs; [
@@ -62,7 +63,10 @@
     enable = true;
     discord.vencord.enable = true;
   };
-
+  programs.bgt = {
+    enable = true;
+    browserLogin = false;
+  };
   
   # User Systemd-Services
   systemd.user.services.voxtype = {
