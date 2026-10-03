@@ -46,6 +46,7 @@
     bat
     eza
     yazi
+    codex
 
     # Development
     go
