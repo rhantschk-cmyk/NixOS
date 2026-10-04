@@ -55,6 +55,7 @@
     gcc
     typescript
     nodejs
+    python
     electron
   ];
 
