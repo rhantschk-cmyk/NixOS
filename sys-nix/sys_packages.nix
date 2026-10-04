@@ -14,6 +14,7 @@
     glib
     flatpak
     docker
+    xwayland-satellite
   ];
 
   # Global Systemd-Services
