@@ -56,6 +56,7 @@
     typescript
     nodejs
     python3
+    uv
     electron
   ];
 
