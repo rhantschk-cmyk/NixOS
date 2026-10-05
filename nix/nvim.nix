@@ -59,6 +59,72 @@ in
       settings.style = "storm";
     };
 
+    plugins.alpha = {
+      enable = true;
+      theme = "dashboard";
+  
+      layout = [
+        # 1. Willkommens-Text
+        {
+          type = "text";
+          val = "👋 Willkommen zurück, Raphael!";
+          opts = {
+            position = "center";
+            hl = "Comment"; # Macht den Text dezent grau/kursiv
+          };
+        }
+        {
+          type = "padding";
+          val = 1;
+        }
+  
+        # 2. Hellblaues NIXVIM ASCII-Logo
+        {
+          type = "text";
+          val = [
+            "  _   _ _____  ______     _______ __  __ "
+            " | \\ | |_   _|\\ \\ / / \\   / /_   _|  \\/  |"
+            " |  \\| | | |   \\ V / \\ \\ / /  | | | |\\/| |"
+            " | |\\  | | |    > <   \\ V /   | | | |  | |"
+            " |_| \\_|____|  /_/\\_\\   \\_/   |___|_|  |_|"
+          ];
+          opts = {
+            position = "center";
+            hl = "DiagnosticInfo"; # Nutzt die vordefinierte hellblaue Farbe deines Themes
+          };
+        }
+        {
+          type = "padding";
+          val = 2;
+        }
+  
+        # 3. Deine nützlichen Aktionen (abgestimmt auf deine Keymaps)
+        {
+          type = "buttons";
+          val = [
+            [ "f" "  Datei suchen" "<cmd>Telescope find_files<CR>" ]
+            [ "g" "  Text im Projekt suchen" "<cmd>Telescope live_grep<CR>" ]
+            [ "b" "  Geöffnete Dokumente (Buffers)" "<cmd>Telescope buffers<CR>" ]
+            [ "n" "    Leere Datei erstellen" "<cmd>ene <BAR> startinsert <CR>" ]
+            [ "q" "    Neovim beenden" "<cmd>qa<CR>" ]
+          ];
+        }
+        {
+          type = "padding";
+          val = 1;
+        }
+  
+        # 4. Eine kleine Fußzeile, die anzeigt, wie viele Plugins geladen wurden
+        {
+          type = "text";
+          val = "⚡ Nixvim geladen mit purer Performance";
+          opts = {
+            position = "center";
+            hl = "Comment";
+          };
+        }
+      ];
+    };
     plugins = {
       nvim-autopairs.enable = true;
       telescope.enable = true;
@@ -105,6 +171,7 @@ in
         };
 
         servers = {
+          nixd.enable = true;
           gopls = {
             enable = true;
             settings = {
@@ -120,12 +187,38 @@ in
             };
           };
 
+          pyright = {
+            enable = true;
+            settings = {
+              python = {
+                analyses = {
+                  autoSearchPaths = true;
+                  useLibraryCodeForTypes = true;
+                  diagnosticMode = "workspace";
+                };
+              };
+            };
+          };
+
           zls.enable = true;
 
           ts_ls.enable = true;
           html.enable = true;
           cssls.enable = true;
           jsonls.enable = true;
+        };
+      };
+      ruff = {
+          enable = true;
+          extraOptions = {
+            on_attach = ''
+              function(client, bufnr)
+                if client.name == "ruff" then
+                  client.server_capabilities.hoverProvider = false
+                end
+              end
+            '';
+          };
         };
       };
     };
@@ -141,6 +234,11 @@ in
       { mode = "n"; key = "<leader>fg"; action = "<cmd>Telescope live_grep<CR>"; }
       { mode = "n"; key = "<leader>fb"; action = "<cmd>Telescope buffers<CR>"; }
       { mode = "n"; key = "<leader>fh"; action = "<cmd>Telescope help_tags<CR>"; }
+      { mode = "n"; key = "<leader>rn"; action = "<cmd>lua vim.lsp.buf.rename()<CR>"; }
+      { mode = "n"; key = "<leader>ca"; action = "<cmd>lua vim.lsp.buf.code_action()<CR>"; }
+      { mode = "n"; key = "gd"; action = "<cmd>lua vim.lsp.buf.definition()<CR>"; } 
+      { mode = "n"; key = "gr"; action = "<cmd>Telescope lsp_references<CR>"; }    
+      { mode = "n"; key = "K";  action = "<cmd>lua vim.lsp.buf.hover()<CR>"; }     
     ];
 
     diagnostic = {

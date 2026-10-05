@@ -13,7 +13,7 @@
     better-git-cli.url = "github:rhantschk-cmyk/betterGitCli";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixcord, nixvim, ...}: {
+  outputs = inputs@{ self, nixpkgs, better-git-cli, home-manager, nixcord, nixvim, ...}: {
     nixosConfigurations.nix-btw = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
