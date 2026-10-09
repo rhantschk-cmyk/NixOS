@@ -17,6 +17,9 @@
     flatpak
     docker
     xwayland-satellite
+    pkgs.stdenv.cc.cc.lib
+    pkgs.libGL
+    libX11
   ];
 
   # Global Systemd-Services

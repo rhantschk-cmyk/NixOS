@@ -38,7 +38,21 @@
     firefox
     nautilus
     obs-studio
-    kdePackages.kdenlive
+    (symlinkJoin {
+      name = "kdenlive-wrapped";
+  
+      paths = [ kdePackages.kdenlive ];
+  
+      nativeBuildInputs = [ makeWrapper ];
+  
+      postBuild = ''
+        wrapProgram $out/bin/kdenlive \
+          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
+            stdenv.cc.cc.lib
+            zlib
+          ]}
+      '';
+    })
     prismlauncher
     obsidian
 
@@ -48,6 +62,7 @@
     eza
     yazi
     codex
+    appimage-run
 
     # Development
     go
