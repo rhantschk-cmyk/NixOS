@@ -11,6 +11,7 @@
       url = "github:nix-community/nixvim";
     };
     better-git-cli.url = "github:rhantschk-cmyk/betterGitCli";
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = inputs@{ self, nixpkgs, better-git-cli, home-manager, nixcord, nixvim, ...}: {
@@ -26,7 +27,7 @@
             useUserPackages = true;
             users.raphael = import ./home.nix;
             backupFileExtension = "backup";
-	    extraSpecialArgs = { inherit inputs; };
+	      extraSpecialArgs = { inherit inputs; };
           };
         }
       ];

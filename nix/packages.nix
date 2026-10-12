@@ -55,6 +55,7 @@
     })
     prismlauncher
     obsidian
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.chatgpt
 
     # Terminal Tools
     zoxide
