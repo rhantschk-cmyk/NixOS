@@ -9,7 +9,7 @@
     --- Variables (syntax: local variable = value)
     
     local terminal = "ghostty"
-    local browser = "firefox"
+    local browser = "chromium"
     local files = "nautilus"
     local editor = "typora"
     local rgb = "openrgb -p std"

@@ -35,7 +35,6 @@
     # Desktop Programs
     typora
     chromium
-    firefox
     nautilus
     obs-studio
     (symlinkJoin {

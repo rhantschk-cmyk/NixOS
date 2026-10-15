@@ -2,6 +2,7 @@
 {
   imports = [
     ./fastfetch.nix
+    ./bash.nix
     ./tmux.nix
     ./cursor.nix
     ./nvim.nix
