@@ -15,7 +15,7 @@
     initExtra = ''
       eval "$(zoxide init bash)"
       newvideo() {
-        local dir="$HOME/Videos/PXL/$1"
+        local dir="$HOME/YouTube/PXL/$1"
   
         mkdir -p \
           "$dir/recordings" \

@@ -12,6 +12,7 @@
     };
     better-git-cli.url = "github:rhantschk-cmyk/betterGitCli";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    pxlbot.url = "path:/home/raphael/Projekte/DiscordBot";
   };
 
   outputs = inputs@{ self, nixpkgs, better-git-cli, home-manager, nixcord, nixvim, ...}: {

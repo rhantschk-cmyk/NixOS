@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ ... }:
 {
   # Nix-Helper
   programs.nh = {

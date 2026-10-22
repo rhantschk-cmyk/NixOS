@@ -1,7 +1,23 @@
-{ config, pkgs, lib, ... }:
+{ pkgs,... }:
 {
   # Xserver
-  programs.hyprland.enable = true;
+  services.desktopManager.plasma6 = {
+    enable = true;
+    enableQt5Integration = true;
+  };
+  environment.plasma6.excludePackages = 
+    with pkgs.kdePackages; [
+      konsole
+      kate
+      elisa
+      khelpcenter
+      kinfocenter
+      kmail
+      kaddressbook
+      kwalletmanager
+      merkuro
+    ];
+  documentation.enable = false;
   services.xserver = {
     enable = true;
     xkb.layout = "de";

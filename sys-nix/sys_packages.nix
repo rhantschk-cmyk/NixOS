@@ -23,8 +23,10 @@
   ];
 
   # Global Systemd-Services
+  services.desktopManager.plasma6.enable = true;
   services.tailscale.enable = true;  
   services.openssh.enable = true;
+  services.udisks2.enable = true;
   services.syncthing = {
     enable = true;
     user = "raphael";

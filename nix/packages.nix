@@ -3,6 +3,7 @@
   imports = [
     inputs.nixcord.homeModules.nixcord
     inputs.better-git-cli.homeModules.default
+    inputs.pxlbot.homeModules.default
   ];
 
   home.packages = with pkgs; [
@@ -20,38 +21,17 @@
     gh
     claude-code
     unzip
+    davinci-resolve
 
     # Desktop
-    awww
     voxtype
-    rofi
     mpv
     tailscale
-    grim
-    slurp
-    swappy
     ghostty
 
     # Desktop Programs
-    typora
     chromium
-    nautilus
     obs-studio
-    (symlinkJoin {
-      name = "kdenlive-wrapped";
-  
-      paths = [ kdePackages.kdenlive ];
-  
-      nativeBuildInputs = [ makeWrapper ];
-  
-      postBuild = ''
-        wrapProgram $out/bin/kdenlive \
-          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
-            stdenv.cc.cc.lib
-            zlib
-          ]}
-      '';
-    })
     prismlauncher
     obsidian
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.chatgpt
@@ -83,6 +63,10 @@
   programs.bgt = {
     enable = true;
     browserLogin = false;
+  };
+  services.pxlbot = {
+    enable = true;
+    environmentFile = "/home/raphael/.config/pxlbot/bot.env";
   };
   
   # User Systemd-Services

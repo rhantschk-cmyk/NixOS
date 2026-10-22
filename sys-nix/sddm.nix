@@ -1,31 +1,19 @@
-{ config, pkgs, ... }:
-
-let
-  custom-sddm-astronaut = pkgs.sddm-astronaut.override {
-    embeddedTheme = "hyprland_kath";
-  };
-  
-in {
+{ pkgs, ... }:
+{
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    wayland.compositor = "weston";
-    autoNumlock = true;
-    enableHidpi = true;
-    theme = "sddm-astronaut-theme";
+
+    theme = "breeze";
+    
     settings = {
-      Theme = {
-        Current = "sddm-astronaut-theme";
-        CursorTheme = "Bibata-Modern-Ice";
-	    CursorSize = 24;
+      General = {
+        Numlock = "on";
       };
     };
-    extraPackages = with pkgs; [
-      custom-sddm-astronaut
-    ];
   };
+
   environment.systemPackages = with pkgs; [
-    custom-sddm-astronaut
-    kdePackages.qtmultimedia
+    kdePackages.sddm-kcm
   ];
 }
