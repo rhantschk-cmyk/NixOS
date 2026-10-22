@@ -40,6 +40,9 @@
     enable32Bit = true;
     extraPackages = with pkgs; [ mesa.opencl ];
   };
+  environment.variables = {
+    RUSTICL_ENABLE = "radeonsi";
+  };
   hardware.enableRedistributableFirmware = true;
   services.xserver.videoDrivers = [ "amdgpu"];
 }
