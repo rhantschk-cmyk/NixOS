@@ -14,6 +14,7 @@ This repository is primarily my personal configuration, but the structure is int
 
 The repository is based on a NixOS flake and currently defines a single NixOS host:
 
+
 ```text
 nix-btw
 ```
