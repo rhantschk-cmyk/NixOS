@@ -28,7 +28,9 @@
     })
     obs-studio
     prismlauncher
-    obsidian
+    (obsidian.override {
+      electron = pkgs.electron_43;
+    })
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.chatgpt
 
     # Terminal Tools
