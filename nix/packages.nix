@@ -10,16 +10,10 @@
     # TUIs
     btop
     radeontop
-    bluetuith
     wiremix
-    ncdu
-    duf
-    dust
     systemctl-tui
-    lazygit
     lazydocker
     gh
-    claude-code
     unzip
     davinci-resolve
 
@@ -27,10 +21,11 @@
     voxtype
     mpv
     tailscale
-    ghostty
 
     # Desktop Programs
-    chromium
+    (chromium.override {
+      enableWideVine = true;
+    })
     obs-studio
     prismlauncher
     obsidian
@@ -40,9 +35,9 @@
     zoxide
     bat
     eza
-    yazi
     codex
     appimage-run
+    yt-dlp
 
     # Development
     go
