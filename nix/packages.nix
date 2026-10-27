@@ -10,6 +10,17 @@ let
       url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.14.5/Obsidian-1.14.5.AppImage";
       hash = "sha256-MGgV9g0V3qhhDXKIbvXlDvS35xhelS/8O7Ib7hWC2VI=";
     };
+    # The FHS wrapper cannot enter arbitrary caller directories (such as
+    # /etc/nixos), so launch it from HOME while preserving all user arguments.
+    extraInstallCommands = ''
+      mv "$out/bin/obsidian" "$out/bin/.obsidian-real"
+      cat > "$out/bin/obsidian" <<'EOF'
+      #!${pkgs.runtimeShell}
+      cd "''${HOME:?}"
+      exec "$(dirname "$(readlink -f "$0")")/.obsidian-real" "$@"
+      EOF
+      chmod +x "$out/bin/obsidian"
+    '';
   };
 in
 {
@@ -18,6 +29,22 @@ in
     inputs.better-git-cli.homeModules.default
     inputs.pxlbot.homeModules.default
   ];
+
+  # AppImage wrappers do not export the upstream desktop entry themselves.
+  xdg.desktopEntries.obsidian = {
+    name = "Obsidian";
+    genericName = "Knowledge base";
+    comment = "Knowledge base that works on local Markdown files";
+    exec = "obsidian %U";
+    icon = "obsidian";
+    terminal = false;
+    categories = [ "Office" "Utility" ];
+    mimeType = [ "x-scheme-handler/obsidian" ];
+  };
+  xdg.dataFile."icons/hicolor/scalable/apps/obsidian.svg".source = pkgs.fetchurl {
+    url = "https://obsidian.md/images/obsidian-logo-gradient.svg";
+    hash = "sha256-EZsBuWyZ9zYJh0LDKfRAMTtnY70q6iLK/ggXlplDEoA=";
+  };
 
   home.packages = with pkgs; [
     # TUIs
