@@ -1,4 +1,17 @@
 { pkgs, inputs, ... }:
+let
+  # Preserve Obsidian's official Electron bundle. The nixpkgs wrapper with
+  # electron_43 reproduces the upstream version but still hits a renderer API
+  # failure on this workstation.
+  obsidianUpstream = pkgs.appimageTools.wrapType2 {
+    pname = "obsidian";
+    version = "1.14.5";
+    src = pkgs.fetchurl {
+      url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.14.5/Obsidian-1.14.5.AppImage";
+      hash = "sha256-MGgV9g0V3qhhDXKIbvXlDvS35xhelS/8O7Ib7hWC2VI=";
+    };
+  };
+in
 {
   imports = [
     inputs.nixcord.homeModules.nixcord
@@ -29,9 +42,7 @@
     obs-studio
     prismlauncher
     lmms
-    (obsidian.override {
-      electron = pkgs.electron_43;
-    })
+    obsidianUpstream
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.chatgpt
 
     # Terminal Tools
