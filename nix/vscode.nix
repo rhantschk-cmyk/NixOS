@@ -106,6 +106,10 @@
     package = pkgs.vscode;
 
     profiles.default = {
+      # Keep the declarative baseline, but let VS Code persist changes made
+      # through its Settings UI instead of pointing settings.json at /nix/store.
+      mutableUserSettings = true;
+
       extensions = with pkgs.vscode-extensions; [
         # Core look, navigation, and editor ergonomics.
         enkia.tokyo-night
