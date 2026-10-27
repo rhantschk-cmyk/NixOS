@@ -28,6 +28,7 @@
     })
     obs-studio
     prismlauncher
+    lmms
     (obsidian.override {
       electron = pkgs.electron_43;
     })
