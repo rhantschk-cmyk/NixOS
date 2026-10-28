@@ -56,6 +56,7 @@ in
     gh
     unzip
     pkgs.kdePackages.kdenlive
+    glaxnimate
 
     # Desktop
     voxtype
