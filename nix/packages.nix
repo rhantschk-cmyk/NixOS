@@ -55,7 +55,7 @@ in
     lazydocker
     gh
     unzip
-    davinci-resolve
+    pkgs.kdePackages.kdenlive
 
     # Desktop
     voxtype
