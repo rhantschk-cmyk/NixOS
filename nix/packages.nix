@@ -49,7 +49,7 @@ in
     icon = "org.gnome.clocks";
     terminal = false;
     categories = [ "GNOME" "GTK" "Utility" "Clock" ];
-    settings.DBusActivatable = false;
+    settings.DBusActivatable = "false";
   };
 
   xdg.dataFile."icons/hicolor/scalable/apps/obsidian.svg".source = pkgs.fetchurl {
