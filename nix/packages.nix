@@ -68,6 +68,7 @@ in
       enableWideVine = true;
     })
     obs-studio
+    gnome-clocks
     prismlauncher
     lmms
     obsidianUpstream
