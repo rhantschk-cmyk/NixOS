@@ -41,7 +41,7 @@ in
     categories = [ "Office" "Utility" ];
     mimeType = [ "x-scheme-handler/obsidian" ];
   };
-  xdg.desktopEntries.gnome-clocks = {
+  xdg.desktopEntries."org.gnome.clocks" = {
     name = "Clocks";
     genericName = "Clocks";
     comment = "Clocks for world times, alarms, stopwatch, and timer";
