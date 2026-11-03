@@ -41,6 +41,17 @@ in
     categories = [ "Office" "Utility" ];
     mimeType = [ "x-scheme-handler/obsidian" ];
   };
+  xdg.desktopEntries.gnome-clocks = {
+    name = "Clocks";
+    genericName = "Clocks";
+    comment = "Clocks for world times, alarms, stopwatch, and timer";
+    exec = "gnome-clocks";
+    icon = "org.gnome.clocks";
+    terminal = false;
+    categories = [ "GNOME" "GTK" "Utility" "Clock" ];
+    settings.DBusActivatable = false;
+  };
+
   xdg.dataFile."icons/hicolor/scalable/apps/obsidian.svg".source = pkgs.fetchurl {
     url = "https://obsidian.md/images/obsidian-logo-gradient.svg";
     hash = "sha256-EZsBuWyZ9zYJh0LDKfRAMTtnY70q6iLK/ggXlplDEoA=";
