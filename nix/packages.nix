@@ -73,6 +73,7 @@ in
     voxtype
     mpv
     tailscale
+    davinci-resolve-studio
 
     # Desktop Programs
     (chromium.override {
