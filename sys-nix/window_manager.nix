@@ -9,9 +9,7 @@
     with pkgs.kdePackages; [
       konsole
       kate
-      elisa
       khelpcenter
-      kinfocenter
       kmail
       kaddressbook
       kwalletmanager

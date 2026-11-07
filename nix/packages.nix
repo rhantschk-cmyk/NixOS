@@ -66,7 +66,6 @@ in
     lazydocker
     gh
     unzip
-    pkgs.kdePackages.kdenlive
     glaxnimate
 
     # Desktop
@@ -93,6 +92,7 @@ in
     codex
     appimage-run
     yt-dlp
+    ffmpeg
 
     # Development
     go
