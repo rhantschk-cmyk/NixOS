@@ -59,14 +59,10 @@ in
 
   home.packages = with pkgs; [
     # TUIs
-    btop
-    radeontop
     wiremix
-    systemctl-tui
     lazydocker
     gh
     unzip
-    glaxnimate
 
     # Desktop
     voxtype
@@ -103,6 +99,8 @@ in
     python3
     uv
     electron
+    pkg-config
+    cairo
   ];
 
   # Programs with extra Config

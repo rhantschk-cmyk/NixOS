@@ -7,7 +7,7 @@
   home.username = "raphael";
   home.homeDirectory = "/home/raphael";
   home.sessionVariables.GTK_THEME = "Tokyonight-Dark-B";
-  home.stateVersion = "26.05";
+  home.stateVersion = "26.11";
 
   programs.git = {
     enable = true;
