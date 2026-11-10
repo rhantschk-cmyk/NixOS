@@ -21,6 +21,19 @@ let
       buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
     });
 
+  # Keep the Resolve Studio package on the exact nixpkgs revision Raphael had
+  # already applied and verified on 2026-11-04. Update this pin deliberately.
+  davinciNixpkgs = import (builtins.fetchTarball {
+    url = "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1100280.3ec636362e18/nixexprs.tar.zst";
+    sha256 = "sha256-17eNBI5Khe4JZaRkL5hRGPWf8MZ6qv+bWAr4V8YeKBw=";
+  }) {
+    system = pkgs.stdenv.hostPlatform.system;
+    config = {
+      allowUnfree = true;
+    };
+  };
+  davinciResolveStudioPinned = davinciNixpkgs.davinci-resolve-studio;
+
   obsidianUpstream = pkgs.appimageTools.wrapType2 {
     pname = "obsidian";
     version = "1.14.5";
@@ -86,7 +99,7 @@ in
     (voxtypeWithSqlite false)
     mpv
     tailscale
-    davinci-resolve-studio
+    davinciResolveStudioPinned
 
     # Desktop Programs
     (chromium.override {
