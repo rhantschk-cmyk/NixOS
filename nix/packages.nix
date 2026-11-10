@@ -3,10 +3,15 @@ let
   # Preserve Obsidian's official Electron bundle. The nixpkgs wrapper with
   # electron_43 reproduces the upstream version but still hits a renderer API
   # failure on this workstation.
-  # nixpkgs' Codex 0.167.0 build omits zstd even though zstd-sys now probes
-  # it through pkg-config. Keep the workaround local until upstream includes it.
-  codexWithZstd = pkgs.codex.overrideAttrs (old: {
-    buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.zstd ];
+  # The pinned Codex 0.167.0 expression lacks its newer native dependencies.
+  # Mirror nixpkgs' upstream fix until this input is updated.
+  codexWithNativeDeps = pkgs.codex.overrideAttrs (old: {
+    buildInputs = (old.buildInputs or [ ]) ++ [
+      pkgs.aws-lc
+      pkgs.oniguruma
+      pkgs.sqlite
+      pkgs.zstd
+    ];
   });
 
   obsidianUpstream = pkgs.appimageTools.wrapType2 {
@@ -91,7 +96,7 @@ in
     zoxide
     bat
     eza
-    codexWithZstd
+    codexWithNativeDeps
     appimage-run
     yt-dlp
     ffmpeg
