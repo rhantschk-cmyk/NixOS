@@ -14,6 +14,13 @@ let
     ];
   });
 
+  # The pinned Voxtype 1.1.1 package is missing sqlite although it links
+  # against libsqlite3. Mirror the upstream package correction locally.
+  voxtypeWithSqlite = vulkanSupport:
+    (pkgs.voxtype.override { inherit vulkanSupport; }).overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
+    });
+
   obsidianUpstream = pkgs.appimageTools.wrapType2 {
     pname = "obsidian";
     version = "1.14.5";
@@ -76,7 +83,7 @@ in
     unzip
 
     # Desktop
-    voxtype
+    (voxtypeWithSqlite false)
     mpv
     tailscale
     davinci-resolve-studio
@@ -137,7 +144,7 @@ in
     };
   
     Service = {
-      ExecStart = "${pkgs.voxtype.override { vulkanSupport = true; }}/bin/voxtype";
+      ExecStart = "${voxtypeWithSqlite true}/bin/voxtype";
       Restart = "on-failure";
       RestartSec = 3;
     };
