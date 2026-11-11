@@ -111,6 +111,8 @@ in
     lmms
     obsidianUpstream
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.chatgpt
+    inputs."lumen-media-pipeline".packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs."lumen-landrop".packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Terminal Tools
     zoxide

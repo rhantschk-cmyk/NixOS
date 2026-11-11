@@ -12,6 +12,8 @@
     };
     better-git-cli.url = "github:rhantschk-cmyk/betterGitCli";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    lumen-media-pipeline.url = "github:rhantschk-cmyk/LumenMediaPipeline";
+    lumen-landrop.url = "github:rhantschk-cmyk/LumenLanDrop";
     pxlbot.url = "path:/home/raphael/Projekte/DiscordBot";
   };
 
