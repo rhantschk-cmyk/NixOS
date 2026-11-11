@@ -133,6 +133,10 @@
         golang.go
         ziglang.vscode-zig
 
+        # Python.
+        ms-python.python
+        ms-python.vscode-pylance
+
         # JavaScript and TypeScript.
         dbaeumer.vscode-eslint
         esbenp.prettier-vscode
