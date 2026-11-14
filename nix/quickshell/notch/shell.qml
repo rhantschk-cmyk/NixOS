@@ -188,30 +188,66 @@ ShellRoot {
                         onTapped: root.openLauncher()
                     }
 
-                    Text {
-                        id: primaryText
-                        anchors.verticalCenter: parent.verticalCenter
+                    Item {
+                        id: primaryContent
                         anchors.left: parent.left
                         anchors.leftMargin: 18
                         anchors.right: header.right
                         anchors.rightMargin: 18
-                        elide: Text.ElideRight
-                        horizontalAlignment: Text.AlignHCenter
-                        color: "#f0eef8"
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: 28
+                        clip: true
                         opacity: root.hovering && !root.launcherOpen ? 0 : 1
-                        font.family: "JetBrainsMono Nerd Font"
-                        font.pixelSize: root.hovering ? 14 : 15
-                        font.weight: Font.DemiBold
-                        text: root.hasMusic
-                            ? root.activePlayer.trackTitle
-                            : root.clockText
 
-                        Behavior on font.pixelSize {
-                            NumberAnimation {
-                                duration: 180
-                                easing.type: Easing.OutCubic
+                        Text {
+                            anchors.centerIn: parent
+                            visible: !root.hasMusic
+                            color: "#f0eef8"
+                            font.family: "JetBrainsMono Nerd Font"
+                            font.pixelSize: 15
+                            font.weight: Font.DemiBold
+                            text: root.clockText
+                        }
+
+                        Text {
+                            id: primaryText
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: root.hasMusic
+                            color: "#f0eef8"
+                            font.family: "JetBrainsMono Nerd Font"
+                            font.pixelSize: 15
+                            font.weight: Font.DemiBold
+                            text: root.hasMusic ? root.activePlayer.trackTitle : ""
+                            property real travel: Math.max(0, implicitWidth - primaryContent.width)
+
+                            SequentialAnimation on x {
+                                id: marquee
+                                running: root.hasMusic
+                                    && !root.hovering
+                                    && !root.launcherOpen
+                                    && primaryText.travel > 2
+                                loops: Animation.Infinite
+
+                                PauseAnimation { duration: 1200 }
+                                NumberAnimation {
+                                    to: -primaryText.travel
+                                    duration: Math.max(1800, primaryText.travel * 28)
+                                    easing.type: Easing.InOutSine
+                                }
+                                PauseAnimation { duration: 900 }
+                                NumberAnimation {
+                                    to: 0
+                                    duration: Math.max(900, primaryText.travel * 14)
+                                    easing.type: Easing.OutCubic
+                                }
+                            }
+
+                            onTextChanged: {
+                                if (marquee.running)
+                                    marquee.restart()
                             }
                         }
+
                         Behavior on opacity {
                             NumberAnimation {
                                 duration: 100
