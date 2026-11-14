@@ -119,6 +119,7 @@ in
       enableWideVine = true;
     })
     obs-studio
+    spotify
     gnome-clocks
     prismlauncher
     lmms
