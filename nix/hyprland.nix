@@ -107,6 +107,8 @@
     hl.bind("SUPER + SHIFT + Q", hl.dsp.exit())
     hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("alacritty"))
     hl.bind("SUPER + SHIFT + RETURN", hl.dsp.exec_cmd("chromium"))
+    hl.bind("SUPER + E", hl.dsp.exec_cmd("davinci-resolve-studio"))
+    hl.bind("SUPER + C", hl.dsp.exec_cmd("code"))
     hl.bind("SUPER + SPACE", hl.dsp.global("caelestia:launcher"))
     hl.bind("SUPER + SHIFT + F", hl.dsp.window.float())
 
