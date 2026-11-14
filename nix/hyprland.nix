@@ -14,7 +14,7 @@
       output = "DP-1",
       mode = "3840x2160@60",
       position = "1920x0",
-      scale = 1.2,
+      scale = 1.4,
     })
 
     hl.config({
