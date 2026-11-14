@@ -36,6 +36,7 @@ static const float mfact     = 0.58;
 static const int nmaster     = 1;
 static const int resizehints = 1;
 static const int lockfullscreen = 1;
+static const int refreshrate = 120;
 
 static const Layout layouts[] = {
   { "[]=", tile },
@@ -55,6 +56,11 @@ static const char *termcmd[] = { "alacritty", NULL };
 static const char *tmuxcmd[] = { "alacritty", "--command", "tmux", "new", "-A", "-s", "main", NULL };
 static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
 static const char *rofiruncmd[] = { "rofi", "-show", "run", NULL };
+static char dmenumon[2] = "0";
+static const char *dmenucmd[] = {
+  "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
+  "-nb", col_bg, "-nf", col_fg, "-sb", col_blue, "-sf", col_bg, NULL
+};
 
 static const Key keys[] = {
   { MODKEY,                       XK_p,      spawn,          {.v = roficmd } },
