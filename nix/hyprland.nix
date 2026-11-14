@@ -6,7 +6,7 @@
     hl.monitor({
       output = "DP-2",
       mode = "1920x1080@60",
-      position = "0x720",
+      position = "0x540",
       scale = 1,
     })
 
@@ -14,7 +14,8 @@
       output = "DP-1",
       mode = "3840x2160@60",
       position = "1920x0",
-      scale = 1.4,
+      -- Hyprland resolves this to the exact 4/3 scale shown by hyprctl.
+      scale = 1.3333334,
     })
 
     -- Keep Raphael's numbered workspaces on their intended display.
