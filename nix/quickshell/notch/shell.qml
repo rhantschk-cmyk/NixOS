@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Mpris
-import Quickshell.Services.SystemClock
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -12,6 +11,7 @@ ShellRoot {
     property bool launcherOpen: false
     property bool hovering: false
     property int selectedIndex: 0
+    property date now: new Date()
     readonly property int compactWidth: 142
     readonly property int expandedWidth: 402
     readonly property int launcherWidth: 640
@@ -26,8 +26,8 @@ ShellRoot {
         return null
     }
     readonly property bool hasMusic: activePlayer !== null && (activePlayer.trackTitle || "").length > 0
-    readonly property string clockText: Qt.formatTime(clock.date, "HH:mm")
-    readonly property string dateText: Qt.formatDate(clock.date, "ddd, d. MMMM")
+    readonly property string clockText: Qt.formatTime(now, "HH:mm")
+    readonly property string dateText: Qt.formatDate(now, "ddd, d. MMMM")
 
     function openLauncher() {
         launcherOpen = true
@@ -70,9 +70,11 @@ ShellRoot {
         closeLauncher()
     }
 
-    SystemClock {
-        id: clock
-        precision: SystemClock.Seconds
+    Timer {
+        interval: 1000
+        repeat: true
+        running: true
+        onTriggered: root.now = new Date()
     }
 
     IpcHandler {
