@@ -1,12 +1,12 @@
 { pkgs, ... }:
-
 let
-  # Wir erstellen eine saubere Textdatei für das ASCII-Art im Nix-Store
-  asciiLogo = pkgs.writeText "nixos-logo.txt" ''
-   _  ___       ____  ____ 
-  / |/ (_)_ __ / __ \/ __/ 
- /    / /\ \ // /_/ /\ \   
-/_/|_/_//_\_\ \____/___/   
+  asciiLogo = pkgs.writeText "raphael-nix-pixel-logo.txt" ''
+       ▄▄▄▄  ▄  ▄  ▄   ▄
+      ██  ██ ██▄██ ██   ██
+      ██  ██ ██ ██ ██▄█ ██
+       ▀▀▀▀  ▀  ▀  ▀▀▀  ▀▀
+
+       N I X  ·  P I X E L
   '';
 in
 {
@@ -14,54 +14,29 @@ in
     enable = true;
     settings = {
       logo = {
-        # Wir übergeben den absoluten Pfad zur generierten Textdatei
         source = "${asciiLogo}";
-        padding = {
-          right = 4;
-          left = 1;
-        };
+        padding = { right = 4; left = 1; };
       };
       display = {
-        separator = " ➜  ";
-        color = {
-          keys = "magenta"; 
-          title = "magenta";
-        };
+        separator = " 󰒋 ";
+        color = { keys = "blue"; title = "magenta"; };
       };
       modules = [
         "title"
+        { type = "custom"; format = "  NIX // PIXEL // FOCUS"; outputColor = "cyan"; }
         "break"
-        {
-          type = "os";
-          key = "OS  ";
-          keyColor = "35";
-        }
-        {
-          type = "kernel";
-          key = "Ker ";
-          keyColor = "35";
-        }
-        {
-          type = "uptime";
-          key = "Upt ";
-          keyColor = "35";
-        }
-        {
-          type = "packages";
-          key = "Pkgs";
-          keyColor = "35";
-        }
-        {
-          type = "memory";
-          key = "RAM ";
-          keyColor = "35";
-        }
+        { type = "os"; key = "OS   "; keyColor = "35"; }
+        { type = "host"; key = "Host "; keyColor = "35"; }
+        { type = "kernel"; key = "Ker  "; keyColor = "35"; }
+        { type = "uptime"; key = "Upt  "; keyColor = "35"; }
+        { type = "packages"; key = "Pkgs "; keyColor = "35"; }
+        { type = "shell"; key = "Sh   "; keyColor = "35"; }
+        { type = "terminal"; key = "Term "; keyColor = "35"; }
+        { type = "wm"; key = "WM   "; keyColor = "35"; }
+        { type = "memory"; key = "RAM  "; keyColor = "35"; }
         "break"
-        {
-          type = "colors";
-          symbol = "circle";
-        }
+        { type = "colors"; symbol = "circle"; }
       ];
     };
   };
-}   
+}
