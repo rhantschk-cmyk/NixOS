@@ -79,6 +79,15 @@
       },
     })
 
+    -- Reapply Raphael's OpenRGB profile at compositor start and shutdown.
+    local openrgbProfile = "openrgb -p sdwn"
+    hl.on("hyprland.start", function()
+      hl.dispatch(hl.dsp.exec_cmd(openrgbProfile))
+    end)
+    hl.on("hyprland.shutdown", function()
+      hl.dispatch(hl.dsp.exec_cmd(openrgbProfile))
+    end)
+
     -- Medium-fast motion: noticeably quicker than stock Hyprland without
     -- making workspace/window changes feel abrupt.
     hl.curve("standard", { type = "bezier", points = { { 0.2, 0 }, { 0, 1 } } })
