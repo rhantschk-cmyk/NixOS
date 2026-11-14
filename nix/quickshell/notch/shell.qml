@@ -11,6 +11,7 @@ ShellRoot {
     property bool launcherOpen: false
     property bool hovering: false
     property int selectedIndex: 0
+    property string launcherQuery: ""
     property date now: new Date()
     readonly property int compactWidth: 142
     readonly property int expandedWidth: 402
@@ -29,15 +30,17 @@ ShellRoot {
     readonly property string clockText: Qt.formatTime(now, "HH:mm")
     readonly property string dateText: Qt.formatDate(now, "ddd, d. MMMM")
 
+    signal launcherFocusRequested()
+
     function openLauncher() {
         launcherOpen = true
         selectedIndex = 0
-        focusTimer.restart()
+        launcherFocusRequested()
     }
 
     function closeLauncher() {
         launcherOpen = false
-        launcherInput.text = ""
+        launcherQuery = ""
         selectedIndex = 0
     }
 
@@ -49,7 +52,7 @@ ShellRoot {
     }
 
     function filteredApps() {
-        const query = launcherInput.text.trim().toLocaleLowerCase()
+        const query = launcherQuery.trim().toLocaleLowerCase()
         const apps = DesktopEntries.applications.values
         return apps.filter(app => {
             if (app.noDisplay)
@@ -85,12 +88,6 @@ ShellRoot {
         }
     }
 
-    Timer {
-        id: focusTimer
-        interval: 70
-        onTriggered: launcherInput.forceActiveFocus()
-    }
-
     Variants {
         model: Quickshell.screens
 
@@ -114,6 +111,20 @@ ShellRoot {
                 left: Math.round((panel.screen.width - root.surfaceWidth) / 2)
                 right: Math.round((panel.screen.width - root.surfaceWidth) / 2)
                 top: 8
+            }
+
+            Timer {
+                id: focusTimer
+                interval: 70
+                onTriggered: launcherInput.forceActiveFocus()
+            }
+
+            Connections {
+                target: root
+
+                function onLauncherFocusRequested() {
+                    focusTimer.restart()
+                }
             }
 
             Rectangle {
@@ -286,6 +297,7 @@ ShellRoot {
                         font.family: "JetBrainsMono Nerd Font"
                         font.pixelSize: 14
                         selectByMouse: true
+                        text: root.launcherQuery
 
                         background: Rectangle {
                             color: "#383848"
@@ -298,10 +310,13 @@ ShellRoot {
                             }
                         }
 
-                        onTextChanged: root.selectedIndex = 0
+                        onTextEdited: {
+                            root.launcherQuery = text
+                            root.selectedIndex = 0
+                        }
                         Keys.onEscapePressed: root.closeLauncher()
                         Keys.onReturnPressed: root.launchSelected()
-                        Keys.onDownPressed: root.selectedIndex = Math.min(root.selectedIndex + 1, root.filteredApps().length - 1)
+                        Keys.onDownPressed: root.selectedIndex = Math.min(root.selectedIndex + 1, Math.max(0, root.filteredApps().length - 1))
                         Keys.onUpPressed: root.selectedIndex = Math.max(root.selectedIndex - 1, 0)
                     }
 
