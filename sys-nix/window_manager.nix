@@ -1,5 +1,8 @@
 { pkgs,... }:
 {
+  # Keep Plasma available, and add the Hyprland session Caelestia is designed for.
+  programs.hyprland.enable = true;
+
   # Xserver
   services.desktopManager.plasma6 = {
     enable = true;

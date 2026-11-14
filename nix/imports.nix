@@ -4,7 +4,7 @@
     ./fastfetch.nix
     ./bash.nix
     ./tmux.nix
-    ./quickshell.nix
+    ./caelestia.nix
     ./nvim.nix
     ./vscode.nix
     ./packages.nix
