@@ -1,23 +1,9 @@
-{ pkgs,... }:
+{ pkgs, ... }:
 {
-  # Keep Plasma available, and add the Hyprland session Caelestia is designed for.
+  # Hyprland/Caelestia is the sole desktop session.
   programs.hyprland.enable = true;
+  services.displayManager.defaultSession = "hyprland";
 
-  # Xserver
-  services.desktopManager.plasma6 = {
-    enable = true;
-    enableQt5Integration = true;
-  };
-  environment.plasma6.excludePackages = 
-    with pkgs.kdePackages; [
-      konsole
-      kate
-      khelpcenter
-      kmail
-      kaddressbook
-      kwalletmanager
-      merkuro
-    ];
   documentation.enable = false;
   services.xserver = {
     enable = true;
