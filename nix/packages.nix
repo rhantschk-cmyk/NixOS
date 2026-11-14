@@ -72,6 +72,19 @@ in
     categories = [ "Office" "Utility" ];
     mimeType = [ "x-scheme-handler/obsidian" ];
   };
+  # Caelestia's launcher does not inherit Raphael's interactive shell PATH.
+  # Override nixpkgs' bare Exec= command with the pinned wrapper's store path.
+  xdg.desktopEntries."davinci-resolve-studio" = {
+    name = "DaVinci Resolve Studio";
+    genericName = "Video Editor";
+    comment = "Professional video editing, color, effects and audio post-processing";
+    exec = "${davinciResolveStudioPinned}/bin/davinci-resolve-studio";
+    icon = "davinci-resolve-studio";
+    terminal = false;
+    categories = [ "AudioVideo" "AudioVideoEditing" "Video" "Graphics" ];
+    settings.StartupWMClass = "resolve";
+  };
+
   xdg.desktopEntries."org.gnome.clocks" = {
     name = "Clocks";
     genericName = "Clocks";
