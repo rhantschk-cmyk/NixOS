@@ -20,11 +20,14 @@ ShellRoot {
     readonly property int surfaceHeight: launcherOpen ? 438 : (hovering ? 58 : 40)
     readonly property var activePlayer: {
         const players = Mpris.players.values
+        let fallback = null
         for (let index = 0; index < players.length; index++) {
             if (players[index].isPlaying)
                 return players[index]
+            if (fallback === null && ((players[index].trackTitle || "").length > 0 || players[index].canTogglePlaying))
+                fallback = players[index]
         }
-        return null
+        return fallback
     }
     readonly property bool hasMusic: activePlayer !== null && (activePlayer.trackTitle || "").length > 0
     readonly property string clockText: Qt.formatTime(now, "HH:mm")
@@ -184,7 +187,7 @@ ShellRoot {
                     height: 58
 
                     TapHandler {
-                        enabled: !root.launcherOpen
+                        enabled: !root.launcherOpen && !root.hasMusic
                         onTapped: root.openLauncher()
                     }
 
@@ -201,6 +204,7 @@ ShellRoot {
 
                         Text {
                             anchors.centerIn: parent
+                            anchors.verticalCenterOffset: -3
                             visible: !root.hasMusic
                             color: "#f0eef8"
                             font.family: "JetBrainsMono Nerd Font"
@@ -259,7 +263,8 @@ ShellRoot {
                     RowLayout {
                         anchors.centerIn: parent
                         spacing: 10
-                        opacity: root.hovering && !root.launcherOpen ? 1 : 0
+                        visible: !root.hasMusic
+                        opacity: root.hovering && !root.launcherOpen && !root.hasMusic ? 1 : 0
 
                         Behavior on opacity {
                             NumberAnimation {
@@ -286,11 +291,93 @@ ShellRoot {
                             color: "#d8d4e8"
                             font.family: "JetBrainsMono Nerd Font"
                             font.pixelSize: 12
+                            text: "Alt + Space"
+                        }
+                    }
+
+                    RowLayout {
+                        anchors.centerIn: parent
+                        spacing: 8
+                        visible: root.hasMusic
+                        opacity: root.hovering && !root.launcherOpen && root.hasMusic ? 1 : 0
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 140
+                                easing.type: Easing.OutCubic
+                            }
+                        }
+
+                        Text {
+                            color: "#d8d4e8"
+                            font.family: "JetBrainsMono Nerd Font"
+                            font.pixelSize: 11
                             elide: Text.ElideRight
-                            Layout.maximumWidth: 190
-                            text: root.hasMusic
-                                ? `${root.activePlayer.trackArtist} — ${root.activePlayer.trackTitle}`
-                                : "Alt + Space"
+                            Layout.maximumWidth: 155
+                            text: `${root.activePlayer.trackArtist} — ${root.activePlayer.trackTitle}`
+                        }
+
+                        Rectangle {
+                            Layout.preferredWidth: 30
+                            Layout.preferredHeight: 28
+                            radius: 9
+                            color: root.activePlayer.canGoPrevious ? "#4a4a5d" : "#3f3f4e"
+                            opacity: root.activePlayer.canGoPrevious ? 1 : 0.42
+
+                            Text {
+                                anchors.centerIn: parent
+                                color: "#f0eef8"
+                                font.family: "JetBrainsMono Nerd Font"
+                                font.pixelSize: 15
+                                text: "⏮"
+                            }
+
+                            TapHandler {
+                                enabled: root.activePlayer.canGoPrevious
+                                onTapped: root.activePlayer.previous()
+                            }
+                        }
+
+                        Rectangle {
+                            Layout.preferredWidth: 34
+                            Layout.preferredHeight: 32
+                            radius: 10
+                            color: root.activePlayer.canTogglePlaying ? "#aaa0d6" : "#4a4a5d"
+                            opacity: root.activePlayer.canTogglePlaying ? 1 : 0.42
+
+                            Text {
+                                anchors.centerIn: parent
+                                color: root.activePlayer.canTogglePlaying ? "#292735" : "#f0eef8"
+                                font.family: "JetBrainsMono Nerd Font"
+                                font.pixelSize: 16
+                                text: root.activePlayer.isPlaying ? "⏸" : "▶"
+                            }
+
+                            TapHandler {
+                                enabled: root.activePlayer.canTogglePlaying
+                                onTapped: root.activePlayer.togglePlaying()
+                            }
+                        }
+
+                        Rectangle {
+                            Layout.preferredWidth: 30
+                            Layout.preferredHeight: 28
+                            radius: 9
+                            color: root.activePlayer.canGoNext ? "#4a4a5d" : "#3f3f4e"
+                            opacity: root.activePlayer.canGoNext ? 1 : 0.42
+
+                            Text {
+                                anchors.centerIn: parent
+                                color: "#f0eef8"
+                                font.family: "JetBrainsMono Nerd Font"
+                                font.pixelSize: 15
+                                text: "⏭"
+                            }
+
+                            TapHandler {
+                                enabled: root.activePlayer.canGoNext
+                                onTapped: root.activePlayer.next()
+                            }
                         }
                     }
                 }
