@@ -7,7 +7,6 @@
     ./nh.nix
     ./performance.nix
     ./window_manager.nix
-    ./dwm.nix
     ./steam.nix
     ./ollama.nix
     ./boot.nix

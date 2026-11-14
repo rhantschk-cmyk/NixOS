@@ -9,11 +9,6 @@
       cd = "z";
       ls = "eza -l";
       cat = "bat";
-      dwmconf = "nvim /etc/nixos/nix/dwm-rice.nix";
-      dwmkeys = "bat /etc/nixos/sys-nix/assets/dwm-config.h";
-      sysmon = "btop";
-      files = "yazi";
-      gitui = "lazygit";
       nixdir = "cd /etc/nixos";
     };
     initExtra = ''
