@@ -49,6 +49,12 @@ in
     enable = true;
     wayland.enable = true;
     theme = "sddm-astronaut-theme";
+    # The theme imports these Qt 6 QML modules at greeter runtime.
+    extraPackages = with pkgs.kdePackages; [
+      qtsvg
+      qtmultimedia
+      qtvirtualkeyboard
+    ];
     settings.General.Numlock = "on";
   };
 
