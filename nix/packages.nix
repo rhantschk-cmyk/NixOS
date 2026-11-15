@@ -111,7 +111,7 @@ in
     # Desktop
     (voxtypeWithSqlite false)
     mpv
-    dolphin
+    kdePackages.dolphin
     tailscale
     davinciResolveStudioPinned
 
