@@ -23,7 +23,7 @@ let
 
   # Keep the Resolve Studio package on the exact nixpkgs revision Raphael had
   # already applied and verified on 2026-11-04. Update this pin deliberately.
-  davinciNixpkgs = import (builtins.fetchTarball {
+  davinciNixpkgs = import (fetchTarball {
     url = "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1100280.3ec636362e18/nixexprs.tar.zst";
     sha256 = "sha256-17eNBI5Khe4JZaRkL5hRGPWf8MZ6qv+bWAr4V8YeKBw=";
   }) {
