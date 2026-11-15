@@ -111,6 +111,7 @@ in
     # Desktop
     (voxtypeWithSqlite false)
     mpv
+    dolphin
     tailscale
     davinciResolveStudioPinned
 
