@@ -48,13 +48,11 @@ in
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
+    package = pkgs.kdePackages.sddm;
     theme = "sddm-astronaut-theme";
-    # The theme imports these Qt 6 QML modules at greeter runtime.
-    extraPackages = with pkgs.kdePackages; [
-      qtsvg
-      qtmultimedia
-      qtvirtualkeyboard
-    ];
+    # SDDM must receive the theme derivation itself so its wrapped greeter
+    # inherits the theme's QML runtime closure, including QtMultimedia.
+    extraPackages = [ sddmNord ];
     settings.General.Numlock = "on";
   };
 
