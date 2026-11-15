@@ -10,7 +10,6 @@
     XCURSOR_THEME = "ArlecchinoChibi";
     XCURSOR_SIZE = "68";
     HYPRCURSOR_SIZE = "68";
-    XCURSOR_PATH = "/home/raphael/.icons:/home/raphael/.local/share/icons:/run/current-system/sw/share/icons";
   };
 
   documentation.enable = false;
