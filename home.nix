@@ -6,7 +6,12 @@
   
   home.username = "raphael";
   home.homeDirectory = "/home/raphael";
-  home.sessionVariables.GTK_THEME = "Tokyonight-Dark-B";
+  home.sessionVariables = {
+    GTK_THEME = "Tokyonight-Dark-B";
+    # The assets live in Raphael's persistent user icon directory.
+    XCURSOR_THEME = "ArlecchinoChibi";
+    XCURSOR_PATH = "/home/raphael/.icons:/home/raphael/.local/share/icons:/run/current-system/sw/share/icons";
+  };
   home.stateVersion = "26.11";
 
   programs.git = {
