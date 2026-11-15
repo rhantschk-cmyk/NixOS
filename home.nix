@@ -10,7 +10,10 @@
     GTK_THEME = "Tokyonight-Dark-B";
     # The assets live in Raphael's persistent user icon directory.
     XCURSOR_THEME = "ArlecchinoChibi";
-    XCURSOR_SIZE = "48";
+    # 68 px is approximately twice the visible cursor area of the former
+    # 48 px setting while preserving the same theme.
+    XCURSOR_SIZE = "68";
+    HYPRCURSOR_SIZE = "68";
     XCURSOR_PATH = "/home/raphael/.icons:/home/raphael/.local/share/icons:/run/current-system/sw/share/icons";
   };
   home.stateVersion = "26.11";
