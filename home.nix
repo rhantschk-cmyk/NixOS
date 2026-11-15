@@ -16,6 +16,7 @@
     HYPRCURSOR_SIZE = "68";
     XCURSOR_PATH = "/home/raphael/.icons:/home/raphael/.local/share/icons:/run/current-system/sw/share/icons";
   };
+
   home.stateVersion = "26.11";
 
   programs.git = {

@@ -4,6 +4,15 @@
   programs.hyprland.enable = true;
   services.displayManager.defaultSession = "hyprland";
 
+  # These must reach SDDM before it spawns Hyprland. Home Manager's shell
+  # session variables are too late for the compositor's initial cursor load.
+  environment.sessionVariables = {
+    XCURSOR_THEME = "ArlecchinoChibi";
+    XCURSOR_SIZE = "68";
+    HYPRCURSOR_SIZE = "68";
+    XCURSOR_PATH = "/home/raphael/.icons:/home/raphael/.local/share/icons:/run/current-system/sw/share/icons";
+  };
+
   documentation.enable = false;
   services.xserver = {
     enable = true;
