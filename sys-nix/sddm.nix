@@ -1,31 +1,26 @@
 { pkgs, ... }:
 let
-  sddm-astronaut = (pkgs.sddm-astronaut.override {
-    embeddedTheme = "japanese_aesthetic";  # or any other theme
+  # Start from Raphael's Astronaut reference configuration. Keep its packaged
+  # Japanese Aesthetic assets; do not reference a placeholder local image.
+  sddmAstronaut = pkgs.sddm-astronaut.override {
+    embeddedTheme = "japanese_aesthetic";
     themeConfig = {
-      # Customize colors and settings
       HeaderTextColor = "#d5c4a1";
-      Background = "Backgrounds/your-custom-background.png";
-      # ... other theme configuration options
     };
-  }).overrideAttrs (oldAttrs: {
-    # Optional: Inject custom background image
-    installPhase = oldAttrs.installPhase + ''
-      chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
-      cp ${./relative/path/to/your-custom-background.png} \
-        $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/your-custom-background.png
-    '';
-  });
+  };
 in
 {
-  environment.systemPackages = [ sddm-astronaut ];
-  
+  environment.systemPackages = [ sddmAstronaut ];
+
   services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true;
     package = pkgs.kdePackages.sddm;
-    extraPackages = with pkgs; [
-      kdePackages.qtmultimedia # Required for video backgrounds/audio
-    ];
+    # SDDM only adds runtime QML imports from this explicit list. The theme
+    # package supplies SVG/virtual-keyboard dependencies; QtMultimedia must be
+    # passed directly so the greeter can resolve its video/audio import.
+    extraPackages = with pkgs.kdePackages; [ qtmultimedia ];
     theme = "sddm-astronaut-theme";
+    settings.General.Numlock = "on";
   };
 }
