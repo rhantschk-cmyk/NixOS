@@ -15,7 +15,7 @@
       mode = "3840x2160@60",
       position = "1920x0",
       -- Hyprland resolves this to the exact 4/3 scale shown by hyprctl.
-      scale = 1.3333334,
+      scale = 1.5,
     })
 
     -- Keep Raphael's numbered workspaces on their intended display.
