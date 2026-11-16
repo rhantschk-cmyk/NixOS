@@ -104,6 +104,8 @@
     local repeating = { repeating = true }
     local mouse = { mouse = true }
     local locked = { locked = true }
+    local screenshotArea = "sh -c 'dir=\"$HOME/Pictures/Screenshots\"; mkdir -p \"$dir\"; file=\"$dir/shot-$(date +%Y-%m-%d_%H-%M-%S).png\"; grim -g \"$(slurp)\" \"$file\" && wl-copy < \"$file\"'"
+    local screenshotScreen = "sh -c 'dir=\"$HOME/Pictures/Screenshots\"; mkdir -p \"$dir\"; file=\"$dir/shot-$(date +%Y-%m-%d_%H-%M-%S).png\"; grim \"$file\" && wl-copy < \"$file\"'"
 
     -- Raphael's core bindings.
     for i = 1, 9 do
@@ -139,8 +141,8 @@
     hl.bind("SUPER + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia clipboard"))
     hl.bind("SUPER + ALT + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia clipboard -d"))
     hl.bind("SUPER + Period", hl.dsp.exec_cmd("pkill fuzzel || caelestia emoji -p"))
-    hl.bind("Print", hl.dsp.exec_cmd("caelestia screenshot"), locked)
-    hl.bind("SUPER + SHIFT + S", hl.dsp.global("caelestia:screenshotFreeze"))
+    hl.bind("Print", hl.dsp.exec_cmd(screenshotArea), locked)
+    hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd(screenshotScreen), locked)
     hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
 
     hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), locked)

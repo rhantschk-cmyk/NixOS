@@ -112,6 +112,8 @@ in
     (voxtypeWithSqlite false)
     mpv
     kdePackages.dolphin
+    grim
+    slurp
     tailscale
     davinciResolveStudioPinned
 
@@ -137,6 +139,7 @@ in
     appimage-run
     yt-dlp
     ffmpeg
+    wl-clipboard
 
     # Development
     go
