@@ -6,7 +6,6 @@
   environment.systemPackages = with pkgs; [
     libnotify
     libxkbcommon
-    ghostty
     openssl
     vim
     wget

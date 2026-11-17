@@ -6,7 +6,7 @@
     ./tmux.nix
     ./caelestia.nix
     ./hyprland.nix
-    ./darkmode.nix
+    ./alacritty.nix
     ./nvim.nix
     ./packages.nix
   ];
