@@ -8,7 +8,6 @@
       home = "cd /home/raphael";
       cd = "z";
       ls = "eza -l";
-      cat = "bat";
       nixdir = "cd /etc/nixos";
     };
     initExtra = ''
@@ -16,20 +15,6 @@
       if [[ $- == *i* && -z "''${TMUX:-}" && -z "''${FASTFETCH_SHOWN:-}" ]]; then
         FASTFETCH_SHOWN=1 fastfetch
       fi
-      newvideo() {
-        local dir="/run/media/raphael/SandiskTr/$1"
-  
-        mkdir -p \
-          "$dir/recordings" \
-          "$dir/assets/audio" \
-          "$dir/assets/images" \
-          "$dir/assets/video" \
-          "$dir/thumbnail" \
-          "$dir/project" \
-          "$dir/exports"
-
-        echo "Created: $dir"
-      }
     '';
   };
 }

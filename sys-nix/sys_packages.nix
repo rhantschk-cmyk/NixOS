@@ -5,8 +5,8 @@
   # System Programs
   environment.systemPackages = with pkgs; [
     libnotify
-    alacritty
     libxkbcommon
+    ghostty
     openssl
     vim
     wget

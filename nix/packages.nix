@@ -1,10 +1,5 @@
 { pkgs, inputs, ... }:
 let
-  # Preserve Obsidian's official Electron bundle. The nixpkgs wrapper with
-  # electron_43 reproduces the upstream version but still hits a renderer API
-  # failure on this workstation.
-  # The pinned Codex 0.167.0 expression lacks its newer native dependencies.
-  # Mirror nixpkgs' upstream fix until this input is updated.
   codexWithNativeDeps = pkgs.codex.overrideAttrs (old: {
     buildInputs = (old.buildInputs or [ ]) ++ [
       pkgs.aws-lc
@@ -14,8 +9,6 @@ let
     ];
   });
 
-  # The pinned Voxtype 1.1.1 package is missing sqlite although it links
-  # against libsqlite3. Mirror the upstream package correction locally.
   voxtypeWithSqlite = vulkanSupport:
     (pkgs.voxtype.override { inherit vulkanSupport; }).overrideAttrs (old: {
       buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
@@ -61,7 +54,6 @@ in
     inputs.pxlbot.homeModules.default
   ];
 
-  # AppImage wrappers do not export the upstream desktop entry themselves.
   xdg.desktopEntries.obsidian = {
     name = "Obsidian";
     genericName = "Knowledge base";
@@ -72,8 +64,6 @@ in
     categories = [ "Office" "Utility" ];
     mimeType = [ "x-scheme-handler/obsidian" ];
   };
-  # Caelestia's launcher does not inherit Raphael's interactive shell PATH.
-  # Override nixpkgs' bare Exec= command with the pinned wrapper's store path.
   xdg.desktopEntries."davinci-resolve-studio" = {
     name = "DaVinci Resolve Studio";
     genericName = "Video Editor";
@@ -105,8 +95,10 @@ in
     # TUIs
     wiremix
     lazydocker
+    systemctl-tui
     gh
     unzip
+    btop
 
     # Desktop
     (voxtypeWithSqlite false)
@@ -127,13 +119,9 @@ in
     prismlauncher
     lmms
     obsidianUpstream
-    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.chatgpt
-    inputs."lumen-media-pipeline".packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs."lumen-landrop".packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Terminal Tools
     zoxide
-    bat
     eza
     codexWithNativeDeps
     appimage-run

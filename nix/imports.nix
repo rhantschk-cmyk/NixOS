@@ -6,8 +6,8 @@
     ./tmux.nix
     ./caelestia.nix
     ./hyprland.nix
+    ./darkmode.nix
     ./nvim.nix
-    ./vscode.nix
     ./packages.nix
   ];
 }

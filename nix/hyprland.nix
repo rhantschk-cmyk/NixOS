@@ -18,6 +18,8 @@
       scale = 1.5,
     })
 
+    hl.env("ELECTRON_OZONE_PLATFORM_HINT", "wayland")
+
     -- Keep Raphael's numbered workspaces on their intended display.
     for i = 1, 5 do
       hl.workspace_rule({
@@ -38,6 +40,10 @@
     hl.config({
       input = {
         kb_layout = "de",
+      },
+
+      xwayland = {
+        force_zero_scaling = true,
       },
 
       general = {
@@ -104,22 +110,23 @@
     local repeating = { repeating = true }
     local mouse = { mouse = true }
     local locked = { locked = true }
-    local screenshotArea = "sh -c 'dir=\"$HOME/Pictures/Screenshots\"; mkdir -p \"$dir\"; file=\"$dir/shot-$(date +%Y-%m-%d_%H-%M-%S).png\"; grim -g \"$(slurp)\" \"$file\" && wl-copy < \"$file\"'"
-    local screenshotScreen = "sh -c 'dir=\"$HOME/Pictures/Screenshots\"; mkdir -p \"$dir\"; file=\"$dir/shot-$(date +%Y-%m-%d_%H-%M-%S).png\"; grim \"$file\" && wl-copy < \"$file\"'"
+    local screenshotArea = "sh -c 'dir=\"$HOME/Bilder/Bildschirmfotos\"; mkdir -p \"$dir\"; file=\"$dir/shot-$(date +%Y-%m-%d_%H-%M-%S).png\"; grim -g \"$(slurp)\" \"$file\" && wl-copy < \"$file\"'"
+    local screenshotScreen = "sh -c 'dir=\"$HOME/Bilder/Bildschirmfotos\"; mkdir -p \"$dir\"; file=\"$dir/shot-$(date +%Y-%m-%d_%H-%M-%S).png\"; grim \"$file\" && wl-copy < \"$file\"'"
 
     -- Raphael's core bindings.
     for i = 1, 9 do
       hl.bind("SUPER + " .. i, hl.dsp.focus({ workspace = tostring(i) }))
-      hl.bind("SUPER + ALT + " .. i, hl.dsp.window.move({ workspace = tostring(i) }))
+      hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = tostring(i) }))
     end
 
     hl.bind("SUPER + W", hl.dsp.window.close())
     hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
     hl.bind("SUPER + SHIFT + Q", hl.dsp.exit())
-    hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("alacritty"))
+    hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("kitty"))
+    hl.bind("SUPER + ALT + RETUERN", hl.dsp.exec_cmd("kitty -e tmux"))
     hl.bind("SUPER + SHIFT + RETURN", hl.dsp.exec_cmd("chromium"))
     hl.bind("SUPER + E", hl.dsp.exec_cmd("davinci-resolve-studio"))
-    hl.bind("SUPER + C", hl.dsp.exec_cmd("code"))
+    hl.bind("SUPER + D", hl.dsp.exec_cmd("dolphin"))
     hl.bind("SUPER + SPACE", hl.dsp.global("caelestia:launcher"))
     hl.bind("SUPER + SHIFT + F", hl.dsp.window.float())
 
