@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.alacritty = {
@@ -29,7 +29,7 @@
           family = "JetBrainsMono Nerd Font";
           style = "Italic";
         };
-        size = 11.5;
+        size = 13.5;
       };
 
       cursor = {
