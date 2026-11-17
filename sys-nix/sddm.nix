@@ -42,12 +42,6 @@ let
       HoverSessionButtonTextColor = "#88C0D0";
       HoverVirtualKeyboardButtonTextColor = "#88C0D0";
     };
-  }).overrideAttrs (oldAttrs: {
-    installPhase = oldAttrs.installPhase + ''
-      chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
-      cp ${./relative/path/to/your-custom-background.png} \
-        $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/your-custom-background.png
-    '';
   });
 in
 {

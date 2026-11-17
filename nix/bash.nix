@@ -15,7 +15,6 @@
       if [[ $- == *i* && -z "''${TMUX:-}" && -z "''${FASTFETCH_SHOWN:-}" ]]; then
         FASTFETCH_SHOWN=1 fastfetch
       fi
-      PS1='\[\033[01;34m\][\u@\h:\w]\$\[\033[00m\] '
     '';
   };
 }
