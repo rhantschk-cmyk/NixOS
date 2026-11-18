@@ -7,8 +7,8 @@
   # These must reach SDDM before it spawns Hyprland. Home Manager's shell
   # session variables are too late for the compositor's initial cursor load.
   environment.sessionVariables = {
-    XCURSOR_THEME = "ArlecchinoChibi-69";
-    XCURSOR_SIZE = "69";
+    XCURSOR_THEME = "ArlecchinoChibi-46";
+    XCURSOR_SIZE = "46";
     HYPRCURSOR_SIZE = "69";
   };
 
