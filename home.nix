@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./nix/imports.nix
@@ -8,16 +8,23 @@
   home.homeDirectory = "/home/raphael";
   home.sessionVariables = {
     GTK_THEME = "Tokyonight-Dark-B";
-    # The assets live in Raphael's persistent user icon directory.
-    XCURSOR_THEME = "ArlecchinoChibi";
-    # Large enough for the mixed-DPI Hyprland setup and readable from a
-    # distance without changing the selected cursor theme.
+    XCURSOR_THEME = "ArlecchinoChibi-96";
     XCURSOR_SIZE = "96";
     HYPRCURSOR_SIZE = "96";
     XCURSOR_PATH = "/home/raphael/.icons:/home/raphael/.local/share/icons:/run/current-system/sw/share/icons";
   };
 
   home.stateVersion = "26.11";
+
+  # ArlecchinoChibi ships only 32 px XCursor images. Build a local 96 px
+  # variant during Home Manager activation instead of relying on unsupported
+  # runtime scaling by Hyprland/GTK.
+  home.activation.scaleArlecchinoCursor = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.python3}/bin/python ${./scripts/scale_xcursor.py} \
+      "$HOME/.icons/ArlecchinoChibi" \
+      "$HOME/.local/share/icons/ArlecchinoChibi-96" \
+      96
+  '';
 
   gtk = {
     enable = true;
@@ -27,10 +34,9 @@
     };
     # Catppuccin's enabled GTK module owns the Papirus-Dark icon selection;
     # leave it as the single source of truth to avoid a module-priority clash.
-    # The cursor assets remain in Raphael's persistent ~/.icons directory;
-    # XCURSOR_PATH above exposes them to GTK and the wider user session.
+    # The generated 96 px variant is available before the next graphical login.
     cursorTheme = {
-      name = "ArlecchinoChibi";
+      name = "ArlecchinoChibi-96";
       size = 96;
     };
     gtk3.extraConfig = {
