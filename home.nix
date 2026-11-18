@@ -8,25 +8,28 @@
   home.homeDirectory = "/home/raphael";
   home.sessionVariables = {
     GTK_THEME = "Tokyonight-Dark-B";
-    # GTK/Electron use logical pixels and are scaled again on Raphael's 1.5x
-    # primary monitor. 46 logical px renders at roughly the 69 px compositor
-    # cursor size instead of becoming oversized in Discord.
-    XCURSOR_THEME = "ArlecchinoChibi-46";
-    XCURSOR_SIZE = "46";
+    # Electron is still doubling the 46 px logical XCursor in Discord. Keep
+    # that client-side size at 23 px while Hyprland uses its own 69 px cursor.
+    XCURSOR_THEME = "ArlecchinoChibi-23";
+    XCURSOR_SIZE = "23";
     HYPRCURSOR_SIZE = "69";
     XCURSOR_PATH = "/home/raphael/.icons:/home/raphael/.local/share/icons:/run/current-system/sw/share/icons";
   };
 
   home.stateVersion = "26.11";
 
-  # ArlecchinoChibi ships only 32 px XCursor images. Build a local 46 px
-  # variant during Home Manager activation instead of relying on unsupported
-  # runtime scaling by Hyprland/GTK.
-  home.activation.scaleArlecchinoCursor46 = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  # ArlecchinoChibi ships only 32 px XCursor images. Build local 23 px (apps)
+  # and 46 px (Hyprland source) variants during Home Manager activation.
+  # This avoids relying on unsupported runtime scaling by Hyprland/GTK.
+  home.activation.scaleArlecchinoCursorThemes = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.python3}/bin/python ${./scripts/scale_xcursor.py} \
       "$HOME/.icons/ArlecchinoChibi" \
       "$HOME/.local/share/icons/ArlecchinoChibi-46" \
       46
+    ${pkgs.python3}/bin/python ${./scripts/scale_xcursor.py} \
+      "$HOME/.icons/ArlecchinoChibi" \
+      "$HOME/.local/share/icons/ArlecchinoChibi-23" \
+      23
   '';
 
   gtk = {
@@ -37,10 +40,10 @@
     };
     # Catppuccin's enabled GTK module owns the Papirus-Dark icon selection;
     # leave it as the single source of truth to avoid a module-priority clash.
-    # GTK consumes logical size, which Hyprland scales on the 1.5x display.
+    # Discord/Electron doubles the client-side XCursor size in this session.
     cursorTheme = {
-      name = "ArlecchinoChibi-46";
-      size = 46;
+      name = "ArlecchinoChibi-23";
+      size = 23;
     };
     gtk3.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;

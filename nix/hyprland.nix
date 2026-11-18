@@ -20,8 +20,8 @@
 
     -- These must be set inside Hyprland's pre-init configuration path; the
     -- session environment alone did not change the compositor cursor size.
-    hl.env("XCURSOR_THEME", "ArlecchinoChibi-46")
-    hl.env("XCURSOR_SIZE", "46")
+    hl.env("XCURSOR_THEME", "ArlecchinoChibi-23")
+    hl.env("XCURSOR_SIZE", "23")
     hl.env("HYPRCURSOR_SIZE", "69")
     hl.env("ELECTRON_OZONE_PLATFORM_HINT", "wayland")
 
@@ -92,8 +92,10 @@
 
     -- Reapply Raphael's OpenRGB profile at compositor start and shutdown.
     local openrgbProfile = "openrgb -p sdwn"
+    local compositorCursor = "hyprctl setcursor ArlecchinoChibi-46 69"
     hl.on("hyprland.start", function()
       hl.dispatch(hl.dsp.exec_cmd(openrgbProfile))
+      hl.dispatch(hl.dsp.exec_cmd(compositorCursor))
     end)
     hl.on("hyprland.shutdown", function()
       hl.dispatch(hl.dsp.exec_cmd(openrgbProfile))
