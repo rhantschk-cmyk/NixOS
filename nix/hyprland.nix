@@ -20,8 +20,8 @@
 
     -- These must be set inside Hyprland's pre-init configuration path; the
     -- session environment alone did not change the compositor cursor size.
-    hl.env("XCURSOR_THEME", "ArlecchinoChibi-23")
-    hl.env("XCURSOR_SIZE", "23")
+    hl.env("XCURSOR_THEME", "ArlecchinoChibi-16")
+    hl.env("XCURSOR_SIZE", "16")
     hl.env("HYPRCURSOR_SIZE", "69")
     hl.env("ELECTRON_OZONE_PLATFORM_HINT", "wayland")
 
