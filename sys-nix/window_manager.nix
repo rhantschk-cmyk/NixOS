@@ -8,8 +8,8 @@
   # session variables are too late for the compositor's initial cursor load.
   environment.sessionVariables = {
     XCURSOR_THEME = "ArlecchinoChibi";
-    XCURSOR_SIZE = "68";
-    HYPRCURSOR_SIZE = "68";
+    XCURSOR_SIZE = "96";
+    HYPRCURSOR_SIZE = "96";
   };
 
   documentation.enable = false;

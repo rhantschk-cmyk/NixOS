@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./nix/imports.nix
@@ -10,14 +10,38 @@
     GTK_THEME = "Tokyonight-Dark-B";
     # The assets live in Raphael's persistent user icon directory.
     XCURSOR_THEME = "ArlecchinoChibi";
-    # 68 px is approximately twice the visible cursor area of the former
-    # 48 px setting while preserving the same theme.
-    XCURSOR_SIZE = "68";
-    HYPRCURSOR_SIZE = "68";
+    # Large enough for the mixed-DPI Hyprland setup and readable from a
+    # distance without changing the selected cursor theme.
+    XCURSOR_SIZE = "96";
+    HYPRCURSOR_SIZE = "96";
     XCURSOR_PATH = "/home/raphael/.icons:/home/raphael/.local/share/icons:/run/current-system/sw/share/icons";
   };
 
   home.stateVersion = "26.11";
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Tokyonight-Dark-B";
+      package = pkgs.tokyonight-gtk-theme;
+    };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+    # The cursor assets remain in Raphael's persistent ~/.icons directory;
+    # XCURSOR_PATH above exposes them to GTK and the wider user session.
+    cursorTheme = {
+      name = "ArlecchinoChibi";
+      size = 96;
+    };
+    gtk3.extraConfig = {
+      "gtk-application-prefer-dark-theme" = 1;
+    };
+    gtk4.extraConfig = {
+      "gtk-application-prefer-dark-theme" = 1;
+    };
+  };
 
   programs.git = {
     enable = true;
