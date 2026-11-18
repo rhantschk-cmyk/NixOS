@@ -25,10 +25,8 @@
       name = "Tokyonight-Dark-B";
       package = pkgs.tokyonight-gtk-theme;
     };
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
+    # Catppuccin's enabled GTK module owns the Papirus-Dark icon selection;
+    # leave it as the single source of truth to avoid a module-priority clash.
     # The cursor assets remain in Raphael's persistent ~/.icons directory;
     # XCURSOR_PATH above exposes them to GTK and the wider user session.
     cursorTheme = {
