@@ -44,13 +44,13 @@ def read_cursor_images(data: bytes) -> list[tuple[int, int, int, int, int, int, 
     return images
 
 
-def resize_nearest(pixels: list[int], width: int, height: int, factor: int) -> list[int]:
+def resize_nearest(pixels: list[int], width: int, height: int, target_width: int, target_height: int) -> list[int]:
     resized: list[int] = []
-    for y in range(height):
-        row = pixels[y * width:(y + 1) * width]
-        expanded_row = [pixel for pixel in row for _ in range(factor)]
-        for _ in range(factor):
-            resized.extend(expanded_row)
+    for y in range(target_height):
+        source_y = min(height - 1, y * height // target_height)
+        for x in range(target_width):
+            source_x = min(width - 1, x * width // target_width)
+            resized.append(pixels[source_y * width + source_x])
     return resized
 
 
@@ -59,18 +59,15 @@ def scale_cursor_file(source: Path, target: Path, target_size: int) -> None:
     source_size = max(image_size for image_size, *_ in images)
     if source_size <= 0 or target_size <= 0:
         raise ValueError("cursor sizes must be positive")
-    if target_size % source_size:
-        raise ValueError(f"{target_size} is not an integer multiple of source size {source_size}")
-    factor = target_size // source_size
-
     chunks: list[bytes] = []
     for _, width, height, xhot, yhot, delay, pixels in images:
-        scaled_pixels = resize_nearest(pixels, width, height, factor)
-        scaled_width = width * factor
-        scaled_height = height * factor
+        scaled_width = max(1, round(width * target_size / source_size))
+        scaled_height = max(1, round(height * target_size / source_size))
+        scaled_pixels = resize_nearest(pixels, width, height, scaled_width, scaled_height)
         chunks.append(
             struct.pack(
-                "<9I", 36, IMAGE_TYPE, target_size, 1, scaled_width, scaled_height, xhot * factor, yhot * factor, delay
+                "<9I", 36, IMAGE_TYPE, target_size, 1, scaled_width, scaled_height,
+                round(xhot * target_size / source_size), round(yhot * target_size / source_size), delay
             ) + struct.pack(f"<{len(scaled_pixels)}I", *scaled_pixels)
         )
 

@@ -54,6 +54,22 @@ class ScaleXcursorTest(unittest.TestCase):
             self.assertEqual(pixels[:6], (0xFF112233,) * 3 + (0xFF445566,) * 3)
             self.assertEqual(pixels[6:12], pixels[:6])
 
+    def test_scale_cursor_file_supports_a_non_multiple_target_size(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_path = Path(temporary_directory)
+            module = load_module()
+            source = temporary_path / "source.cursor"
+            target = temporary_path / "target.cursor"
+            write_single_image_cursor(source)
+
+            module.scale_cursor_file(source, target, 69)
+
+            data = target.read_bytes()
+            _, subtype, offset = struct.unpack_from("<3I", data, 16)
+            self.assertEqual(subtype, 69)
+            _, _, image_subtype, _, width, height, xhot, yhot, _ = struct.unpack_from("<9I", data, offset)
+            self.assertEqual((image_subtype, width, height, xhot, yhot), (69, 4, 2, 2, 0))
+
 
 if __name__ == "__main__":
     unittest.main()

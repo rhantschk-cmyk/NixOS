@@ -20,9 +20,9 @@
 
     -- These must be set inside Hyprland's pre-init configuration path; the
     -- session environment alone did not change the compositor cursor size.
-    hl.env("XCURSOR_THEME", "ArlecchinoChibi-96")
-    hl.env("XCURSOR_SIZE", "96")
-    hl.env("HYPRCURSOR_SIZE", "96")
+    hl.env("XCURSOR_THEME", "ArlecchinoChibi-69")
+    hl.env("XCURSOR_SIZE", "69")
+    hl.env("HYPRCURSOR_SIZE", "69")
     hl.env("ELECTRON_OZONE_PLATFORM_HINT", "wayland")
 
     -- Keep Raphael's numbered workspaces on their intended display.
