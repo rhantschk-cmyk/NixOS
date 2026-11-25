@@ -11,14 +11,9 @@
       url = "github:nix-community/nixvim";
     };
     better-git-cli.url = "github:rhantschk-cmyk/betterGitCli";
-    llm-agents.url = "github:numtide/llm-agents.nix";
-    lumen-media-pipeline.url = "github:rhantschk-cmyk/LumenMediaPipeline";
-    lumen-landrop.url = "github:rhantschk-cmyk/LumenLanDrop";
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     pxlbot.url = "path:/home/raphael/Projekte/DiscordBot";
+    catppuccin.url = "github:catppuccin/nix";
+    areofyl-fetch.url = "github:areofyl/fetch";
   };
 
   outputs = inputs@{ self, nixpkgs, better-git-cli, home-manager, nixcord, nixvim, ...}: {

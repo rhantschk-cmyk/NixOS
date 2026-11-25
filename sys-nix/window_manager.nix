@@ -1,16 +1,14 @@
 { pkgs, ... }:
 {
-  # Hyprland/Caelestia is the sole desktop session.
-  programs.hyprland.enable = true;
-  services.displayManager.defaultSession = "hyprland";
-
-  # These must reach SDDM before it spawns Hyprland. Home Manager's shell
-  # session variables are too late for the compositor's initial cursor load.
-  environment.sessionVariables = {
-    XCURSOR_THEME = "ArlecchinoChibi-16";
-    XCURSOR_SIZE = "16";
-    HYPRCURSOR_SIZE = "69";
+  services = {
+    desktopManager.plasma6.enable = true;
+    displayManager.sddm.enable = true;
+    displayManager.sddm.wayland.enable = true;
   };
+
+  environment.plasma6.excludePackages = with pkgs; [
+    kdePackages.kdepim-runtime
+  ];
 
   documentation.enable = false;
   services.xserver = {

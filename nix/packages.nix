@@ -9,13 +9,6 @@ let
     ];
   });
 
-  voxtypeWithSqlite = vulkanSupport:
-    (pkgs.voxtype.override { inherit vulkanSupport; }).overrideAttrs (old: {
-      buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
-    });
-
-  # Keep the Resolve Studio package on the exact nixpkgs revision Raphael had
-  # already applied and verified on 2026-11-04. Update this pin deliberately.
   davinciNixpkgs = import (fetchTarball {
     url = "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1100280.3ec636362e18/nixexprs.tar.zst";
     sha256 = "sha256-17eNBI5Khe4JZaRkL5hRGPWf8MZ6qv+bWAr4V8YeKBw=";
@@ -101,9 +94,7 @@ in
     btop
 
     # Desktop
-    (voxtypeWithSqlite false)
     mpv
-    kdePackages.dolphin
     grim
     slurp
     tailscale
@@ -115,6 +106,7 @@ in
     })
     obs-studio
     spotify
+    vscodium
     gnome-clocks
     prismlauncher
     lmms
@@ -154,24 +146,5 @@ in
   services.pxlbot = {
     enable = true;
     environmentFile = "/home/raphael/.config/pxlbot/bot.env";
-  };
-  
-  # User Systemd-Services
-  systemd.user.services.voxtype = {
-    Unit = {
-      Description = "Voxtype Speech-to-Text Daemon";
-      After = [ "graphical-session.target" "pipewire.service" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-  
-    Service = {
-      ExecStart = "${voxtypeWithSqlite true}/bin/voxtype";
-      Restart = "on-failure";
-      RestartSec = 3;
-    };
-  
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
   };
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, inputs, ... }:
 
 let
   # Catppuccin Frappé Farbpalette (ohne # für CLI-Flags)
@@ -24,6 +24,10 @@ let
   };
 in
 {
+  imports = [
+    inputs.catppuccin.homeModules.catppuccin
+    inputs.areofyl-fetch.homeManagerModules.default
+  ];
   # 1. Globale Catppuccin-Einstellungen (benötigt das catppuccin/nix Flake-Modul)
   catppuccin = {
     enable = true;
@@ -53,11 +57,6 @@ in
     # cbonsai & pipes
     bonsai = "cbonsai -l -i -L 40";
     pipes = "pipes-rs -p 5 -t 0.05";
-    
-    # Moderne CLI-Tools
-    ls = "eza --icons --group-directories-first";
-    ll = "eza -la --icons --group-directories-first";
-    cat = "bat";
   };
 
   # 4. Konfigurierte Terminal-Programme (werden automatisch gethemed)
@@ -72,7 +71,6 @@ in
     # Audio-Visualizer (mit transparentem Hintergrund für Terminal-Blur)
     cava = {
       enable = true;
-      catppuccin.transparent = true;
       settings = {
         general = {
           framerate = 60;
@@ -100,54 +98,15 @@ in
         add_newline = false;
       };
     };
-
-    # Terminal-Multiplexer
-    tmux = {
-      enable = true;
-      mouse = true;
-      keyMode = "vi";
-      baseIndex = 1;
-      catppuccin.extraConfig = ''
-        set -g @catppuccin_window_status_style "rounded"
-      '';
-    };
-
-    # Syntax-Highlighting für 'cat'
     bat.enable = true;
+  };
 
-    # Fuzzy Finder (Strg+R für History, Strg+T für Dateien)
-    fzf = {
-      enable = true;
-      enableZshIntegration = true;
-      enableBashIntegration = true;
-    };
-
-    # Bessere Git-Diffs
-    delta = {
-      enable = true;
-      enableGitIntegration = true;
-    };
-
-    # Schnelle Verzeichnis-Sprünge ('z ordnername')
-    zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-      enableBashIntegration = true;
-    };
-
-    # Terminal-Emulator (z.B. Kitty) für echte Transparenz & Frappé-Basis
-    kitty = {
-      enable = true;
-      font = {
-        name = "JetBrainsMono Nerd Font";
-        size = 12;
-      };
-      settings = {
-        background_opacity = "0.90";
-        window_padding_width = 10;
-        confirm_os_window_close = 0;
-      };
-    };
+  programs.fetch = {
+    enable = true;
+    labelColor = "blue";
+    info = [ "os" "kernel" "uptime" "memory" ];
+    speed = 1.0;
+    # spin = "xy";
   };
 }
 

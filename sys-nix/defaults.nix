@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./sddm.nix
     ./locales.nix
     ./boot_animation.nix
     ./nh.nix
