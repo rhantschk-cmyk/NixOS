@@ -1,4 +1,16 @@
 { pkgs, ... }:
+let
+  comfyuiRocm = pkgs.comfyui.override {
+    python3 = pkgs.python3.override {
+      packageOverrides = _final: prev: {
+        torch = prev.torch.override {
+          rocmSupport = true;
+          gpuTargets = [ "gfx1200" ];
+        };
+      };
+    };
+  };
+in
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -15,6 +27,7 @@
     glib
     flatpak
     docker
+    comfyuiRocm
     xwayland-satellite
     pkgs.stdenv.cc.cc.lib
     pkgs.libGL
