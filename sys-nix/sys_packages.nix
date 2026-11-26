@@ -1,23 +1,14 @@
-{ pkgs, ... }:
-let
-  comfyuiRocm = pkgs.comfyui.override {
-    python3 = pkgs.python3.override {
-      packageOverrides = _final: prev: {
-        torch = prev.torch.override {
-          rocmSupport = true;
-          gpuTargets = [ "gfx1200" ];
-        };
-      };
-    };
-  };
-in
+{ pkgs, lib, ... }:
 {
   nixpkgs.config.allowUnfree = true;
 
   # System Programs
   environment.systemPackages = with pkgs; [
     libnotify
+    rocmPackages.rocminfo
+    rocmPackages.rocm-smi
     libxkbcommon
+    noctalia
     openssl
     vim
     wget
@@ -27,12 +18,14 @@ in
     glib
     flatpak
     docker
-    comfyuiRocm
     xwayland-satellite
     pkgs.stdenv.cc.cc.lib
     pkgs.libGL
     libX11
   ];
+
+  programs.niri.enable = true;
+  services.displayManager.defaultSession = lib.mkForce "niri";
 
   # Global Systemd-Services
   services.tailscale.enable = true;  

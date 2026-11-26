@@ -28,7 +28,7 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             users.raphael = import ./home.nix;
-            backupFileExtension = "backup";
+            backupFileExtension = "backup-%Y%m%d%H%M%S";
 	      extraSpecialArgs = { inherit inputs; };
           };
         }

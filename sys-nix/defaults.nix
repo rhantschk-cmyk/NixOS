@@ -4,6 +4,7 @@
     ./locales.nix
     ./boot_animation.nix
     ./nh.nix
+    ./sddm.nix
     ./performance.nix
     ./window_manager.nix
     ./steam.nix

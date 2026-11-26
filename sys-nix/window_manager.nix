@@ -1,15 +1,5 @@
 { pkgs, ... }:
 {
-  services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
-  };
-
-  environment.plasma6.excludePackages = with pkgs; [
-    kdePackages.kdepim-runtime
-  ];
-
   documentation.enable = false;
   services.xserver = {
     enable = true;

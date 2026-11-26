@@ -1,14 +1,5 @@
 { pkgs, inputs, ... }:
 let
-  codexWithNativeDeps = pkgs.codex.overrideAttrs (old: {
-    buildInputs = (old.buildInputs or [ ]) ++ [
-      pkgs.aws-lc
-      pkgs.oniguruma
-      pkgs.sqlite
-      pkgs.zstd
-    ];
-  });
-
   davinciNixpkgs = import (fetchTarball {
     url = "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1100280.3ec636362e18/nixexprs.tar.zst";
     sha256 = "sha256-17eNBI5Khe4JZaRkL5hRGPWf8MZ6qv+bWAr4V8YeKBw=";
@@ -108,6 +99,7 @@ in
     spotify
     vscodium
     gnome-clocks
+    kdePackages.dolphin
     prismlauncher
     lmms
     obsidianUpstream
@@ -115,7 +107,7 @@ in
     # Terminal Tools
     zoxide
     eza
-    codexWithNativeDeps
+    codex
     appimage-run
     yt-dlp
     ffmpeg
