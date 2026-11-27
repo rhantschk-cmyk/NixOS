@@ -8,5 +8,6 @@
     ./alacritty.nix
     ./nvim.nix
     ./packages.nix
+    ./lucy-desktop.nix
   ];
 }
