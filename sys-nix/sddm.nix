@@ -8,7 +8,7 @@ let
       owner = "ClementFombonne";
       repo = "sddm-noctalia-theme";
       rev = "main"; # Verwende einen festen Commit-Hash für 100% Reproduzierbarkeit
-      sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Mit echtem Hash ersetzen oder per 'nix-prefetch-url' holen
+      sha256 = "sha256-crN2oqml/QJTjOCa3/i0MQREDvPzg5TYC5BfKnk77fQ="; # Mit echtem Hash ersetzen oder per 'nix-prefetch-url' holen
     };
     installPhase = ''
       mkdir -p $out/share/sddm/themes
@@ -22,11 +22,17 @@ in
     enable = true;
     wayland.enable = true; # Empfohlen, da Noctalia ein nativer Wayland-Workspace ist
     theme = "sddm-noctalia-theme";
+    settings = {
+      Theme = {
+        CursorTheme = "Adwaita"; # Trage hier deinen Cursor-Namen ein
+      };
+    };
   };
 
   # 3. Das Theme zu den System-Packages hinzufügen, damit SDDM den Pfad findet
   environment.systemPackages = [
     sddm-noctalia-theme
+    pkgs.adwaita-icon-theme
   ];
 
   # 4. Notwendige Qt6-Abhängigkeiten laden, da das Theme Qt6 voraussetzt
